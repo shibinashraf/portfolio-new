@@ -7,7 +7,7 @@ import { BsSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { BsFillChatQuoteFill } from "react-icons/bs";
 
 import { FiExternalLink } from "react-icons/fi";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useTheme, useSetTheme } from "./theme.store";
 
 export default function Home() {
