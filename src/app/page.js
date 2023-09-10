@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
-import shibin from "../../public/shibin.svg";
-import dp from "../../public/dp.png";
-import build from "../../public/build.svg";
+
 import { BsSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { BsFillChatQuoteFill } from "react-icons/bs";
 
@@ -33,7 +31,7 @@ export default function Home() {
         <nav className="md:px-12 md:h-[7rem] h-[5rem] w-screen flex justify-between items-center p-8 	">
           <Image
             className="hover:grayscale	hover:scale-110 t-slomo"
-            src={shibin}
+            src="SHIBIN.svg"
             height={150}
             width={150}
           />
@@ -53,7 +51,7 @@ export default function Home() {
         <div className="flex h-full justify-center items-center w-screen md:flex-row flex-col gap-4 md:mt-8 p-6  ">
           <div className=" flex-col md:w-3/5 w-full	md:h-[20rem] box-style bg-white border-[2px] dark:border-slate-500	 border-blue-200  dark:bg-black flex justify-center items-center p-6">
             <div className=" rounded-full h-[10rem] w-[10rem] ">
-              <Image src={dp} />
+              <Image src="/dp.png" width={200} height={200} />
             </div>
             <p className="text-lg">
               Hi, i am{" "}
@@ -64,7 +62,7 @@ export default function Home() {
               experiences.
             </p>
           </div>
-          <div className="relative md:w-2/5 p-6 w-full	md:h-[20rem] h-[10rem] box-style text-center font-thin md:text-4xl opacity-60 bg-white border-[2px] dark:border-slate-500	 border-blue-200  dark:bg-black flex justify-center items-center ">
+          <div className="relative md:w-2/5 p-6 w-full	md:h-[20rem] h-[10rem] box-style text-center font-thin md:text-4xl opacity-90 bg-white border-[2px] dark:border-slate-500	 border-blue-200  dark:bg-black flex justify-center items-center ">
             <div className="p-2 absolute -top-2 -right-3 rounded-full flex justify-center items-center md:text-5xl text-3xl">
               <BsFillChatQuoteFill />
             </div>
@@ -74,7 +72,7 @@ export default function Home() {
         </div>
 
         <div className="md:mt-8 mt-6 flex justify-center items-center">
-          <Image src={build} width={800} />
+          <Image src="build.svg" width={700} height={100} />
         </div>
         <div className="flex flex-col">
           <h1 className=" text-4xl  text-center my-12 font-bold">Services</h1>
