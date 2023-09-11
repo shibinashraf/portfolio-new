@@ -210,7 +210,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col p-8">
           <AnimatePresence>
             <motion.div
               className=" mx-auto"
@@ -225,7 +225,7 @@ export default function Home() {
                 Certifications and Achievements
               </h1>
 
-              <ul className="text-left md:text-xl space-y-[7px]">
+              <ul className="text-left md:text-xl space-y-[7px] ">
                 <li>
                   &rarr;&nbsp;Completed
                   <span className="font-bold text-blue-400 dark:text-blue-200">
