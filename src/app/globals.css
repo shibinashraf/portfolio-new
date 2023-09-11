@@ -5,8 +5,8 @@
 @tailwind utilities;
 
 .box-style{
-  border-radius: 50px;
-box-shadow: 0px 8px 30px 7px rgba(88, 239, 236, 0.14);
+  border-radius: 30px;
+box-shadow: 0px 5px 20px 3px rgba(88, 239, 236, 0.14);
 }
 .museo{
   font-family: 'MuseoModerno', cursive;
