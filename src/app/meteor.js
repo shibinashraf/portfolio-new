@@ -2,10 +2,11 @@ import clsx from "clsx";
 import React from "react";
 
 export const Meteors = ({ number }) => {
-  const meteors = new Array(number || 20).fill(true);
+  const meteorsCount = Math.min(number || 20, 10); // Limit the number of meteors on mobile screens
+
   return (
-    <>
-      {meteors.map((el, idx) => (
+    <div className="">
+      {Array.from({ length: meteorsCount }).map((_, idx) => (
         <span
           key={"meteor" + idx}
           className={clsx(
@@ -13,13 +14,13 @@ export const Meteors = ({ number }) => {
             "before:content-[''] before:absolute before:top-1/2 before:transform before:-translate-y-[50%] before:w-[50px] before:h-[1px] before:bg-gradient-to-r before:from-[#64748b] before:to-transparent"
           )}
           style={{
-            top: 0,
-            left: Math.floor(Math.random() * (900 - -600) + -400) + "px",
+            top: `${Math.floor(Math.random() * 90)}%`, // Adjust the top position as a percentage
+            left: `${Math.floor(Math.random() * 90)}%`, // Adjust the left position as a percentage
             animationDelay: Math.random() * (0.8 - 0.2) + 0.2 + "s",
             animationDuration: Math.floor(Math.random() * (10 - 2) + 2) + "s",
           }}
         ></span>
       ))}
-    </>
+    </div>
   );
 };

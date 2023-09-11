@@ -37,8 +37,10 @@ export default function Home() {
 
   return (
     <>
-      <div className=" flex flex-col bg-white museo dark:bg-black  dark:text-white text-black">
-        {theme === "dark" ? <Meteors number={10} /> : ""}
+      <div className="  flex flex-col bg-white museo dark:bg-black  dark:text-white text-black ">
+        <div className="md:block hidden overflow-hidden max-w-full">
+          {theme === "dark" ? <Meteors number={10} /> : ""}
+        </div>
 
         <nav className="md:px-12 md:h-[7rem] h-[5rem] w-screen flex justify-between items-center p-8 	">
           <Image
