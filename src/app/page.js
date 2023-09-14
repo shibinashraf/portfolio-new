@@ -153,7 +153,6 @@ export default function Home() {
 
           <AnimatePresence>
             <motion.div
-              className=" mx-auto"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{
