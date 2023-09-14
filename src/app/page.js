@@ -181,9 +181,12 @@ export default function Home() {
                 className="grid md:grid-cols-3 grid-cols-1 p-8 md:gap-x-[6rem] md:gap-y-[4rem] gap-[2rem] mx-auto"
               >
                 <div className="  hover:scale-105 t-slomo p-6 relative flex flex-col items-center justify-center h-auto w-[15rem] box-style bg-white border-[2px] dark:border-slate-500	 dark:bg-black">
-                  <div className="h-12 w-12 absolute -top-2 -right-2 rounded-full bg-blue-200 hover:scale-105 t-slomo flex justify-center items-center text-black  ">
-                    <FiExternalLink />
-                  </div>
+                  <a href="https://udyo.online">
+                    {" "}
+                    <div className="h-12 w-12 absolute -top-2 -right-2 rounded-full bg-blue-200 hover:scale-105 t-slomo flex justify-center items-center text-black  ">
+                      <FiExternalLink />
+                    </div>
+                  </a>
                   <Image
                     className="rounded-full h-[6rem] w-[6rem] mb-4"
                     src="/udyo.png"
@@ -197,9 +200,11 @@ export default function Home() {
                 </div>
 
                 <div className="  text-center hover:scale-105 t-slomo p-6 relative flex flex-col items-center justify-center  h-auto w-[15rem] box-style bg-white border-[2px] dark:border-slate-500 dark:bg-black">
-                  <div className="h-12 w-12 absolute -top-2 -right-2 rounded-full bg-blue-200   hover:scale-105 t-slomo flex justify-center items-center text-black  ">
-                    <FiExternalLink />
-                  </div>
+                  <a href="https://post-gta.vercel.app/">
+                    <div className="h-12 w-12 absolute -top-2 -right-2 rounded-full bg-blue-200   hover:scale-105 t-slomo flex justify-center items-center text-black  ">
+                      <FiExternalLink />
+                    </div>
+                  </a>
                   <Image
                     className="rounded-full h-[5rem] w-[6rem] mb-4"
                     src="/peas.png"
@@ -213,9 +218,11 @@ export default function Home() {
                 </div>
 
                 <div className=" hover:scale-105 t-slomo p-6 relative flex flex-col items-center justify-center  h-auto w-[15rem] box-style bg-white border-[2px] dark:border-slate-500	  dark:bg-black">
-                  <div className="h-12 w-12 absolute -top-2 -right-2 rounded-full bg-blue-200   hover:scale-105 t-slomo flex justify-center items-center text-black  ">
-                    <FiExternalLink />
-                  </div>
+                  <a href="https://huggingface.co/spaces/shibinashraf36/drugrecommendationsystem">
+                    <div className="h-12 w-12 absolute -top-2 -right-2 rounded-full bg-blue-200   hover:scale-105 t-slomo flex justify-center items-center text-black  ">
+                      <FiExternalLink />
+                    </div>
+                  </a>
                   <Image
                     className="rounded-full h-[5rem] w-[5rem] mb-4"
                     src="/pddrs.png"
@@ -229,9 +236,11 @@ export default function Home() {
                 </div>
 
                 <div className=" hover:scale-105 t-slomo p-6 relative flex flex-col items-center justify-center h-auto w-[15rem] box-style bg-white border-[2px] dark:border-slate-500	  dark:bg-black">
-                  <div className="h-12 w-12 absolute -top-2 -right-2 rounded-full bg-blue-200  hover:scale-105 t-slomo flex justify-center items-center text-black  ">
-                    <FiExternalLink />
-                  </div>
+                  <a href="https://pdfx.devignx.tech/">
+                    <div className="h-12 w-12 absolute -top-2 -right-2 rounded-full bg-blue-200  hover:scale-105 t-slomo flex justify-center items-center text-black  ">
+                      <FiExternalLink />
+                    </div>
+                  </a>
                   <Image
                     className="rounded-full h-[5rem] w-[5rem] mb-4"
                     src="/pdfx.png"
@@ -245,9 +254,12 @@ export default function Home() {
                 </div>
 
                 <div className=" hover:scale-105 t-slomo p-6 relative flex flex-col items-center justify-center  h-auto w-[15rem] box-style bg-white border-[2px] dark:border-slate-500	  dark:bg-black">
-                  <div className="h-12 w-12  absolute   -top-2 -right-2 rounded-full bg-blue-200   hover:scale-105 t-slomo flex justify-center items-center text-black  ">
-                    <FiExternalLink />
-                  </div>
+                  <a href="https://webifyyash.vercel.app">
+                    {" "}
+                    <div className="h-12 w-12  absolute   -top-2 -right-2 rounded-full bg-blue-200   hover:scale-105 t-slomo flex justify-center items-center text-black  ">
+                      <FiExternalLink />
+                    </div>
+                  </a>
 
                   <Image
                     className="rounded-full h-[5rem] w-[5rem] mb-4"
