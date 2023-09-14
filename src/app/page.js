@@ -381,7 +381,7 @@ export default function Home() {
           <div className="h-screen w-screen dark:bg-black bg-white flex justify-center items-center">
             {Gray === true ? (
               <Image
-                className="grayscale animate-bounce duration-1000	hover:scale-110 t-slomo"
+                className="grayscale 	hover:scale-110 t-slomo"
                 src="SHIBIN.svg"
                 height={150}
                 width={150}
