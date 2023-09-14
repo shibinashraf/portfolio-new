@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,200;0,300;0,400;0,600;1,200;1,400;1,600&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;1,100;1,200;1,400;1,500&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,7 +11,10 @@ box-shadow: 0px 5px 20px 3px rgba(88, 239, 236, 0.14);
 .museo{
   font-family: 'MuseoModerno', cursive;
 }
+.mont{
+  font-family: 'Montserrat', sans-serif;
 
+}
 html {
   scroll-behavior: smooth;
 }
