@@ -1,10 +1,7 @@
 {
-  "name": "portfolio-new",
+  "name": "portdolio-new",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": ">=20.0.0"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -14,12 +11,13 @@
   "dependencies": {
     "autoprefixer": "10.4.15",
     "clsx": "^2.0.0",
+    "clx": "^1.0.0",
     "framer-motion": "^10.16.4",
     "next": "13.4.19",
     "postcss": "8.4.29",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "^5.0.1",
+    "react-icons": "^4.11.0",
     "tailwindcss": "3.3.3",
     "zustand": "^4.4.1"
   },
