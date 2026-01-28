@@ -1,325 +1,414 @@
 "use client";
-
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { 
-  motion, 
-  useScroll, 
-  useTransform, 
-  AnimatePresence 
+
+import { BsSunFill, BsFillMoonStarsFill } from "react-icons/bs";
+import { BsFillChatQuoteFill } from "react-icons/bs";
+import { BsLinkedin, BsGithub, BsInstagram, BsGoogle } from "react-icons/bs";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useSpring,
+  useInView,
+  useTransform,
 } from "framer-motion";
-import { 
-  FiGithub, 
-  FiLinkedin, 
-  FiMail, 
-  FiExternalLink, 
-  FiDatabase, 
-  FiCode, 
-  FiCpu, 
-  FiDownload 
-} from "react-icons/fi";
-import { SiSnowflake, SiPython, SiPalantir, SiDbt, SiReact, SiNextdotjs, SiMicrosoftazure } from "react-icons/si";
-
-// --- Components ---
-
-const TechBadge = ({ icon: Icon, name, color }) => (
-  <div className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-md hover:bg-white/10 transition-colors">
-    <Icon className={`text-lg ${color}`} />
-    <span className="text-sm font-medium text-gray-300">{name}</span>
-  </div>
-);
-
-const ProjectCard = ({ title, desc, tags, link, type }) => (
-  <motion.div 
-    whileHover={{ y: -5 }}
-    className="group relative p-6 bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm"
-  >
-    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-    
-    <div className="relative z-10">
-      <div className="flex justify-between items-start mb-4">
-        <span className={`px-3 py-1 text-xs font-bold rounded-full ${type === 'Data Eng' ? 'bg-cyan-500/20 text-cyan-300' : 'bg-purple-500/20 text-purple-300'}`}>
-          {type}
-        </span>
-        {link && (
-          <a href={link} target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors">
-            <FiExternalLink />
-          </a>
-        )}
-      </div>
-      
-      <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">{title}</h3>
-      <p className="text-gray-400 text-sm mb-4 leading-relaxed">{desc}</p>
-      
-      <div className="flex flex-wrap gap-2">
-        {tags.map((tag, i) => (
-          <span key={i} className="text-xs text-gray-500 font-mono">#{tag}</span>
-        ))}
-      </div>
-    </div>
-  </motion.div>
-);
-
-const TimelineItem = ({ role, company, date, bullets }) => (
-  <div className="relative pl-8 pb-12 border-l border-white/10 last:pb-0">
-    <div className="absolute -left-[5px] top-0 h-2.5 w-2.5 rounded-full bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.5)]" />
-    <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
-      <h3 className="text-lg font-bold text-white">{role}</h3>
-      <span className="text-sm text-gray-500 font-mono">{date}</span>
-    </div>
-    <div className="text-cyan-400 text-sm font-medium mb-4">{company}</div>
-    <ul className="space-y-2">
-      {bullets.map((item, i) => (
-        <li key={i} className="text-gray-400 text-sm leading-relaxed pl-4 relative before:content-['>'] before:absolute before:left-0 before:text-gray-600">
-          {item}
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+import { FiExternalLink } from "react-icons/fi";
+import { useState, useEffect, useRef } from "react";
+import { useTheme, useSetTheme } from "./theme.store";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
-  const { scrollYProgress } = useScroll();
-  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 2000);
+    setTimeout(() => setLoading(false), 2500);
   }, []);
 
+  const [Gray, setGray] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setGray(false), 1000);
+  }, []);
+
+  const ref = useRef(null);
+
+  const theme = useTheme();
+  useEffect(() => {
+    try {
+      const localTheme = JSON.parse(localStorage.getItem("theme"));
+      if (localTheme) {
+        document.documentElement.setAttribute(
+          "data-mode",
+          localTheme.state.theme
+        );
+        document.documentElement.className = localTheme.state.theme;
+      }
+    } catch (err) {
+      console.log("error loading the color theme");
+    }
+  }, [theme]);
+  const setTheme = useSetTheme();
+  const codingQuotes = [
+    "The only limit to our realization of tomorrow will be our doubts of today.",
+    "The best way to predict the future is to create it.",
+    "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+    "Believe you can and you're halfway there.",
+    "Your time is limited, don't waste it living someone else's life.",
+    "The future belongs to those who believe in the beauty of their dreams.",
+    "Success usually comes to those who are too busy to be looking for it.",
+    "In the middle of every difficulty lies opportunity.",
+    "The best revenge is massive success.",
+    "Don't count the days, make the days count.",
+    "The road to success and the road to failure are almost exactly the same.",
+    "The way to get started is to quit talking and begin doing.",
+    "Your attitude determines your direction.",
+    "Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence.",
+    "The harder you work for something, the greater you'll feel when you achieve it.",
+    "Success is walking from failure to failure with no loss of enthusiasm.",
+    "You miss 100% of the shots you don't take.",
+    "Dream big and dare to fail.",
+    "The only thing that stands between you and your dream is the will to try and the belief that it is actually possible.",
+    "Don't let yesterday take up too much of today.",
+  ];
+  const [quote, setQuote] = useState("");
+
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * codingQuotes.length);
+    setQuote(codingQuotes[randomIndex]);
+  }, []);
   return (
-    <div className="min-h-screen bg-[#050505] text-white selection:bg-cyan-500/30 selection:text-cyan-100 font-sans">
-      {/* Scroll Progress Bar */}
-      <motion.div style={{ scaleX }} className="fixed top-0 left-0 right-0 h-1 bg-cyan-500 origin-left z-50" />
-
-      {/* Intro Animation Overlay */}
-      <AnimatePresence>
-        {loading && (
-          <motion.div 
-            initial={{ opacity: 1 }} 
-            exit={{ opacity: 0 }} 
-            className="fixed inset-0 z-[100] bg-black flex items-center justify-center flex-col"
-          >
-            <motion.div 
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
-              className="text-cyan-500 font-mono text-xl"
-            >
-              INITIALIZING_SYSTEM...
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <div className="max-w-6xl mx-auto px-6 relative">
-        
-        {/* Decorative Background Elements */}
-        <div className="fixed top-0 left-0 w-[500px] h-[500px] bg-purple-900/20 rounded-full blur-[120px] -z-10 mix-blend-screen pointer-events-none" />
-        <div className="fixed bottom-0 right-0 w-[500px] h-[500px] bg-cyan-900/20 rounded-full blur-[120px] -z-10 mix-blend-screen pointer-events-none" />
-
-        {/* --- NAVBAR --- */}
-        <nav className="flex justify-between items-center py-8">
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="font-bold text-2xl tracking-tighter"
-          >
-            SHIBIN<span className="text-cyan-500">.TA</span>
-          </motion.div>
-          <div className="flex gap-6 text-sm font-medium text-gray-400">
-            <a href="#experience" className="hover:text-white transition-colors">Experience</a>
-            <a href="#projects" className="hover:text-white transition-colors">Work</a>
-            <a href="#contact" className="hover:text-white transition-colors">Contact</a>
-          </div>
-        </nav>
-
-        {/* --- HERO SECTION --- */}
-        <section className="min-h-[80vh] flex flex-col justify-center py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="space-y-6"
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-              </span>
-              Available for Data Engineering Roles
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
-              Data Engineer.<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">
-                System Architect.
-              </span>
-            </h1>
-
-            <p className="max-w-xl text-gray-400 text-lg leading-relaxed">
-              I specialize in the Modern Data Stack. Currently transforming raw data into actionable insights at 
-              <strong className="text-white"> EY GDS</strong> using Snowflake, dbt, and Palantir Foundry.
-              Bridging the gap between legacy systems and modern cloud architecture.
-            </p>
-
-            <div className="flex flex-wrap gap-4 pt-4">
-              <a href="#contact" className="px-8 py-3 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform">
-                Let's Talk
+    <>
+      {loading === false ? (
+        <div className="  flex flex-col bg-white mont dark:bg-black  dark:text-white text-black ">
+          <nav className="md:px-12 md:h-[7rem] h-[5rem] w-screen flex justify-between items-center p-8 	">
+            <Image
+              className="hover:grayscale	hover:scale-110 t-slomo"
+              src="SHIBIN.svg"
+              height={150}
+              width={150}
+            />
+            <div className=" flex gap-8">
+              <a href="#contact">
+                <button className="md:block hidden dark:bg-white hover:rounded-3xl t-slomo p-4 px-10  bg-black text-white dark:text-black">
+                  Let's Talk
+                </button>
               </a>
-              <a href="/SHIBIN_RESUME.pdf" download className="px-8 py-3 border border-white/20 hover:bg-white/10 text-white font-medium rounded-full flex items-center gap-2 transition-all">
-                <FiDownload /> Download Resume
-              </a>
+              <div>
+                <button onClick={setTheme}>
+                  <div className=" w-12 h-12 p-2 rounded-full  dark:text-white hover:scale-150 t-slomo text-black t-white flex flex-wrap justify-center items-center">
+                    {theme === "light" ? (
+                      <BsFillMoonStarsFill />
+                    ) : (
+                      <BsSunFill />
+                    )}
+                  </div>
+                </button>
+              </div>
             </div>
-
-            {/* Marquee Skills */}
-            <div className="pt-12 flex flex-wrap gap-4 opacity-80">
-              <TechBadge icon={SiSnowflake} name="Snowflake" color="text-blue-300" />
-              <TechBadge icon={SiPalantir} name="Palantir Foundry" color="text-gray-200" />
-              <TechBadge icon={SiDbt} name="dbt" color="text-orange-400" />
-              <TechBadge icon={SiPython} name="Python" color="text-yellow-300" />
-              <TechBadge icon={SiMicrosoftazure} name="Azure" color="text-blue-500" />
-            </div>
-          </motion.div>
-        </section>
-
-        {/* --- EXPERIENCE SECTION --- */}
-        <section id="experience" className="py-20 border-t border-white/5">
-          <div className="grid md:grid-cols-3 gap-12">
-            <div>
-              <h2 className="text-3xl font-bold mb-4">Experience</h2>
-              <p className="text-gray-400 text-sm">
-                From freelance web development to enterprise-scale data engineering. 
-                My journey is defined by moving from "Support" to "Core Development" through automation.
+          </nav>
+          <div className="flex h-full justify-center items-center w-screen md:flex-row flex-col gap-4 md:mt-8 p-6  ">
+            <div className=" flex-col md:w-3/5 w-full	md:h-[20rem] box-style bg-white border-[2px] dark:border-slate-500	 border-blue-200  dark:bg-black flex justify-center items-center p-6">
+              <div className=" rounded-full h-[10rem] w-[10rem] ">
+                <Image src="/dp.png" width={200} height={200} />
+              </div>
+              <p className="text-lg">
+                Hi, i am
+                <span className="text-blue-200 museo text-center text-2xl">
+                  &nbsp;Shibin
+                </span>
+                , a full-stack developer and UI/UX designer from India, deeply
+                passionate about React.js, product design, and creating
+                innovative software. I thrive on turning ideas into seamless
+                digital experiences.
               </p>
             </div>
-            <div className="md:col-span-2">
-              <TimelineItem 
-                role="Associate Analyst (Data Engineer)"
-                company="Ernst & Young (EY GDS)"
-                date="Jan 2024 - Present"
-                bullets={[
-                  "Engineered the migration of critical integrations from SQL Server to Snowflake, reducing data latency.",
-                  "Developed interactive Palantir Foundry Workshop applications to visualize Snowflake metadata and lineage.",
-                  "Automated job scheduling and data workflows using Python and Stonebranch, reducing manual effort by 40%.",
-                  "Optimized Snowflake costs by auditing database usage and decommissioning unused assets."
-                ]}
-              />
-              <TimelineItem 
-                role="Freelance Full Stack Developer"
-                company="Self-Employed"
-                date="2022 - 2023"
-                bullets={[
-                  "Built high-performance web applications using Next.js and React.",
-                  "Deployed deployed responsive portfolios and tools like 'Udyo' and 'PDFx'.",
-                  "Integrated complex APIs and managed database states."
-                ]}
-              />
+
+            <div className="relative md:w-2/5 p-6 w-full museo font-medium 	md:h-[20rem] h-[10rem] box-style text-center opacity-80 md:text-4xl bg-white border-[2px] dark:border-slate-500	 border-blue-200  dark:bg-black flex justify-center items-center ">
+              <div className="p-2 absolute text-blue-200 -top-2 -right-3 rounded-full flex justify-center items-center md:text-5xl text-3xl">
+                <BsFillChatQuoteFill />
+              </div>
+              {quote}
             </div>
           </div>
-        </section>
-
-        {/* --- PROJECTS & CASE STUDIES --- */}
-        <section id="projects" className="py-20">
-          <h2 className="text-3xl font-bold mb-12">Featured Work</h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* DATA PROJECTS (Prioritized) */}
-            <ProjectCard 
-              type="Data Eng"
-              title="Legacy Migration Pipeline"
-              desc="A high-throughput pipeline moving 500GB+ of data from on-prem SQL Server to Snowflake Cloud Data Warehouse."
-              tags={["Snowflake", "SQL", "Python", "Performance Tuning"]}
-            />
-            
-            <ProjectCard 
-              type="Data Eng"
-              title="Palantir Workshop App"
-              desc="An interactive dashboard built in Foundry to visualize data lineage and quality metrics for client stakeholders."
-              tags={["Palantir Foundry", "Ontology", "Typescript", "CSS"]}
-            />
-
-            <ProjectCard 
-              type="Data Eng"
-              title="Automated Cost Auditor"
-              desc="Python scripts that analyze compute usage logs to identify and alert on inefficient queries."
-              tags={["Python", "Automation", "Stonebranch"]}
-            />
-
-            {/* WEB PROJECTS (Secondary) */}
-            <ProjectCard 
-              type="Full Stack"
-              title="Udyo! Jobs Portal"
-              desc="A comprehensive job search platform connecting seekers with opportunities."
-              tags={["Next.js", "React", "Node.js"]}
-              link="https://udyo.online"
-            />
-
-            <ProjectCard 
-              type="Full Stack"
-              title="PEAS Companion"
-              desc="A mental health and stress management application focusing on user wellness."
-              tags={["React", "Firebase", "UI/UX"]}
-              link="https://post-gta.vercel.app/"
-            />
-
-            <ProjectCard 
-              type="AI / ML"
-              title="Drug Rec. System"
-              desc="Machine learning model to suggest medications based on symptoms."
-              tags={["Python", "Scikit-Learn", "HuggingFace"]}
-              link="https://huggingface.co/spaces/shibinashraf36/drugrecommendationsystem"
-            />
+          <div className="md:mt-8 mt-6 flex justify-center items-center">
+            <Image src="build.svg" width={700} height={100} />
           </div>
-        </section>
-
-        {/* --- CERTIFICATIONS --- */}
-        <section className="py-20 border-t border-white/5">
-           <h2 className="text-3xl font-bold mb-12 text-center">Certifications</h2>
-           <div className="flex flex-wrap justify-center gap-6">
-              {[
-                "Azure AI Fundamentals (AI-900)",
-                "Azure Fundamentals (AZ-900)",
-                "GitHub Copilot Badge",
-                "Google Cloud Ready Facilitator",
-                "EY Digital Badge: Oil & Gas"
-              ].map((cert, i) => (
-                <div key={i} className="px-6 py-3 bg-white/5 rounded-lg border border-white/10 text-sm hover:border-cyan-500/50 transition-colors cursor-default">
-                  {cert}
+          <div className="flex flex-col">
+            <h1 className=" text-4xl  text-center my-12 font-bold">Services</h1>
+            <AnimatePresence>
+              <motion.div
+                className=" mx-auto"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 1,
+                  ease: "easeInOut",
+                }}
+              >
+                <div className="grid md:grid-cols-3 grid-cols-2 gap-10 mx-auto p-6 text-sm text-center">
+                  <div className="p-4 px-6 md:py-[2rem]  md:px-[4rem] shadow-md rounded-xl border-2 border-slate-300  hover:scale-105 t-slomo">
+                    Full Stack Works
+                  </div>
+                  <div className=" p-4 px-6 md:py-[2rem]  md:px-[4rem] shadow-md rounded-xl border-2 border-slate-300  hover:scale-105 t-slomo">
+                    Portfolio Works
+                  </div>
+                  <div className=" p-4 px-6 md:py-[2rem]  md:px-[4rem] shadow-md rounded-xl border-2 border-slate-300  hover:scale-105 t-slomo">
+                    API Integration
+                  </div>
+                  <div className="p-4 px-6 md:py-[2rem]  md:px-[4rem]  shadow-md rounded-xl border-2 border-slate-300  hover:scale-105 t-slomo">
+                    UI/UX Design
+                  </div>
+                  <div className="flex items-center justify-center p-4 px-6 md:py-[2rem]  md:px-[4rem]  shadow-md rounded-xl border-2 border-slate-300  hover:scale-105 t-slomo">
+                    Technical Support
+                  </div>
+                  <div className="p-4 px-6 md:py-[2rem]  md:px-[4rem]  shadow-md rounded-xl border-2 border-slate-300  hover:scale-105 t-slomo">
+                    Testing and Debugging
+                  </div>
                 </div>
-              ))}
-           </div>
-        </section>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+          <div className="flex flex-col">
+            <h1 className=" text-4xl  text-center my-12 font-bold">Projects</h1>
 
-        {/* --- CONTACT --- */}
-        <section id="contact" className="py-32 text-center relative overflow-hidden">
-          <div className="relative z-10">
-            <h2 className="text-5xl font-bold mb-6">Ready to Collaborate?</h2>
-            <p className="text-gray-400 mb-8 max-w-lg mx-auto">
-              I am currently open to new opportunities in Data Engineering. 
-              With a 30-day notice period, I can join your team immediately.
+            <AnimatePresence>
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 1,
+                  ease: "easeInOut",
+                }}
+                className="grid md:grid-cols-3 grid-cols-1 p-8 md:gap-x-[6rem] md:gap-y-[4rem] gap-[2rem] mx-auto"
+              >
+                <div className="  hover:scale-105 t-slomo p-6 relative flex flex-col items-center justify-center h-auto w-[15rem] box-style bg-white border-[2px] dark:border-slate-500	 dark:bg-black">
+                  <a href="https://udyo.online">
+                    {" "}
+                    <div className="h-12 w-12 absolute -top-2 -right-2 rounded-full bg-blue-200 hover:scale-105 t-slomo flex justify-center items-center text-black  ">
+                      <FiExternalLink />
+                    </div>
+                  </a>
+                  <Image
+                    className="rounded-full h-[6rem] w-[6rem] mb-4"
+                    src="/udyo.png"
+                    width={100}
+                    height={100}
+                  />
+
+                  <div className="text-lg font-regular">
+                    Udyo! - Jobs Portal
+                  </div>
+                </div>
+
+                <div className="  text-center hover:scale-105 t-slomo p-6 relative flex flex-col items-center justify-center  h-auto w-[15rem] box-style bg-white border-[2px] dark:border-slate-500 dark:bg-black">
+                  <a href="https://post-gta.vercel.app/">
+                    <div className="h-12 w-12 absolute -top-2 -right-2 rounded-full bg-blue-200   hover:scale-105 t-slomo flex justify-center items-center text-black  ">
+                      <FiExternalLink />
+                    </div>
+                  </a>
+                  <Image
+                    className="rounded-full h-[5rem] w-[6rem] mb-4"
+                    src="/peas.png"
+                    width={100}
+                    height={100}
+                  />
+
+                  <div className="text-lg font-regular">
+                    PEAS - Stress Management Companion
+                  </div>
+                </div>
+
+                <div className=" hover:scale-105 t-slomo p-6 relative flex flex-col items-center justify-center  h-auto w-[15rem] box-style bg-white border-[2px] dark:border-slate-500	  dark:bg-black">
+                  <a href="https://huggingface.co/spaces/shibinashraf36/drugrecommendationsystem">
+                    <div className="h-12 w-12 absolute -top-2 -right-2 rounded-full bg-blue-200   hover:scale-105 t-slomo flex justify-center items-center text-black  ">
+                      <FiExternalLink />
+                    </div>
+                  </a>
+                  <Image
+                    className="rounded-full h-[5rem] w-[5rem] mb-4"
+                    src="/pddrs.png"
+                    width={100}
+                    height={100}
+                  />
+
+                  <div className="text-lg text-center font-regular">
+                    PDDRS - Machine Learning
+                  </div>
+                </div>
+
+                <div className=" hover:scale-105 t-slomo p-6 relative flex flex-col items-center justify-center h-auto w-[15rem] box-style bg-white border-[2px] dark:border-slate-500	  dark:bg-black">
+                  <a href="https://pdfx.devignx.tech/">
+                    <div className="h-12 w-12 absolute -top-2 -right-2 rounded-full bg-blue-200  hover:scale-105 t-slomo flex justify-center items-center text-black  ">
+                      <FiExternalLink />
+                    </div>
+                  </a>
+                  <Image
+                    className="rounded-full h-[5rem] w-[5rem] mb-4"
+                    src="/pdfx.png"
+                    width={100}
+                    height={100}
+                  />
+
+                  <div className="text-lg text-center font-regular">
+                    pdfX - PDF Toolkit
+                  </div>
+                </div>
+
+                <div className=" hover:scale-105 t-slomo p-6 relative flex flex-col items-center justify-center  h-auto w-[15rem] box-style bg-white border-[2px] dark:border-slate-500	  dark:bg-black">
+                  <a href="https://webifyyash.vercel.app">
+                    {" "}
+                    <div className="h-12 w-12  absolute   -top-2 -right-2 rounded-full bg-blue-200   hover:scale-105 t-slomo flex justify-center items-center text-black  ">
+                      <FiExternalLink />
+                    </div>
+                  </a>
+
+                  <Image
+                    className="rounded-full h-[5rem] w-[5rem] mb-4"
+                    src="/bingewatch.png"
+                    width={100}
+                    height={100}
+                  />
+
+                  <div className="text-lg text-center font-regular">
+                    Binge Watch - Movies
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <div className="flex flex-col p-8">
+            <AnimatePresence>
+              <motion.div
+                className=" mx-auto"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 1,
+                  ease: "easeInOut",
+                }}
+              >
+                <h1 className=" text-4xl  text-center  mt-20 mb-10 font-bold">
+                  Certifications and Achievements
+                </h1>
+
+                <ul className="text-left md:text-xl space-y-[7px] ">
+                  <li>
+                    &rarr;&nbsp;Completed
+                    <span className="font-bold text-blue-400 dark:text-blue-200">
+                      &nbsp;GoogleCloudReady Facilitator program.
+                    </span>
+                  </li>
+                  <li>
+                    &rarr;&nbsp; Completed{" "}
+                    <span className="font-bold text-blue-400 dark:text-blue-200">
+                      IBM SkillsBuild Internship
+                    </span>{" "}
+                    for Emerging Technologies in Data Analytics (DA)
+                  </li>
+                  <li>
+                    &rarr;&nbsp;Completed agile virtual experience program by
+                    cognizant.
+                  </li>
+                  <li>
+                    &rarr;&nbsp; Completed{" "}
+                    <span className="font-bold text-blue-400 dark:text-blue-200">
+                      Cybersecurity Engineering Virtual Internship Program by
+                      SAP - Forage.
+                    </span>
+                  </li>
+                  <li>
+                    &rarr;&nbsp; Completed Internship Programme on artifical
+                    intelligence organized by{" "}
+                    <span className="font-bold text-blue-400 dark:text-blue-200">
+                      PaceLab, Kochi.
+                    </span>
+                  </li>
+                  <li>
+                    &rarr;&nbsp; Completed various courses offered by{" "}
+                    <span className="font-bold  text-blue-400 dark:text-blue-200">
+                      Coursera , EdX, Udemy on Linux, Python and latest
+                      technologies.
+                    </span>
+                  </li>
+                  <li>
+                    &rarr;&nbsp; Done various activities as student member of
+                    <span className="font-bold text-blue-400 dark:text-blue-200">
+                      &nbsp;Institution's Innovation Council (IIC).
+                    </span>
+                  </li>
+                </ul>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+          <div className="flex flex-col">
+            <h1 id="contact" className=" text-4xl  text-center mt-20 font-bold">
+              Contact
+            </h1>
+            <p className=" flex justify-center md:p-8 p-4 font-thin md:text-lg text-sm text-center">
+              If you're interested in collaborating or have any questions, feel
+              free to get in touch. I'd love to hear from you!
             </p>
-            
-            <div className="flex justify-center gap-6 text-2xl">
-              <a href="https://linkedin.com/in/shibin-ashraf" className="p-4 bg-white/5 rounded-full hover:bg-cyan-500 hover:text-black transition-all">
-                <FiLinkedin />
+
+            <div className="flex flex-wrap gap-2 md:gap-[6rem] p-4 justify-center">
+              <a
+                target="_blank"
+                href="https://www.linkedin.com/in/shibin-ashraf/"
+              >
+                <div className="p-4 drop-shadow-md	text-xl bg-blue-200 dark:bg-white text-blue-800 hover:scale-110  t-slomo rounded-full  flex items-center justify-center">
+                  <BsLinkedin />
+                </div>
               </a>
-              <a href="https://github.com/shibinashraf" className="p-4 bg-white/5 rounded-full hover:bg-purple-500 hover:text-white transition-all">
-                <FiGithub />
+              <a target="_blank" href="https://github.com/shibinashraf">
+                <div className="p-4 drop-shadow-md	text-xl bg-blue-200 dark:bg-white text-red-800  hover:scale-110  t-slomo  rounded-full   flex items-center justify-center">
+                  <BsGithub />
+                </div>
               </a>
-              <a href="mailto:shibinashraf36@gmail.com" className="p-4 bg-white/5 rounded-full hover:bg-green-500 hover:text-white transition-all">
-                <FiMail />
+
+              <a target="_blank" href="mailto: shibinashraf36@gmail.com">
+                <div className="p-4 drop-shadow-md	text-xl bg-blue-200  dark:bg-white  text-green-800  hover:scale-110 t-slomo  rounded-full  flex items-center justify-center">
+                  <BsGoogle />
+                </div>
+              </a>
+              <a target="_blank" href="https://www.instagram.com/shib1n/">
+                <div className="p-4 drop-shadow-md	text-xl bg-blue-200  dark:bg-white text-purple-800  hover:scale-110 t-slomo  rounded-full flex items-center justify-center">
+                  <BsInstagram />
+                </div>
               </a>
             </div>
           </div>
-          
-          {/* Footer */}
-          <footer className="absolute bottom-4 w-full text-center text-xs text-gray-600 font-mono">
-            DESIGNED & DEVELOPED BY SHIBIN TA © {new Date().getFullYear()}
-          </footer>
-        </section>
+          <footer className="mt-8 flex flex-col items-center justify-center gap-4 p-4">
+            <div className="p-2  px-4 bg-black rounded-md text-white text-sm   hover:scale-105 t-slomo dark:bg-white dark:text-black  flex justify-center  items-center">
+              <a href="#top">
+                Back to top <span>&nbsp;&#8593;</span>{" "}
+              </a>
+            </div>
 
-      </div>
-    </div>
+            <div className="md:w-[25%] flex justify-center">
+              © 2023 Copyright. All rights reserved.
+            </div>
+          </footer>
+        </div>
+      ) : (
+        <>
+          <div className="h-screen w-screen dark:bg-black bg-white flex justify-center items-center">
+            {Gray === true ? (
+              <Image
+                className="grayscale 	hover:scale-110 t-slomo"
+                src="SHIBIN.svg"
+                height={150}
+                width={150}
+              />
+            ) : (
+              <Image
+                className="ease-in-out  t-slomo"
+                src="SHIBIN.svg"
+                height={150}
+                width={150}
+              />
+            )}
+          </div>
+        </>
+      )}
+    </>
   );
 }
